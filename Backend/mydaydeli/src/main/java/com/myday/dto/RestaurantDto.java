@@ -1,4 +1,4 @@
-package com.myday.model;
+package com.myday.dto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

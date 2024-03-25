@@ -1,6 +1,7 @@
 package com.myday.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.myday.dto.RestaurantDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
