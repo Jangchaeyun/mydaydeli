@@ -14,10 +14,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collection;
 
 @RestController
 @RequestMapping("/auth")
@@ -74,7 +77,16 @@ public class AuthController {
 
         Authentication authentication = authenticate(username, password);
 
-        return null;
+        String jwt = jwtProvider.generateToken(authentication);
+
+        AuthResponse authResponse = new AuthResponse();
+        authResponse.setJwt(jwt);
+        authResponse.setMessage("Register success");
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        
+        // authResponse.setRole(savedUser.getRole());
+
+        return new ResponseEntity<>(authResponse, HttpStatus.OK);
     }
 
     private Authentication authenticate(String username, String password) {
@@ -86,7 +98,6 @@ public class AuthController {
         if (!passwordEncoder.matches(password, userDetails.getPassword())) {
             throw new BadCredentialsException("Invalid password...");
         }
-        return new org.springframework.security.core.userdetails.User(userDetails, null,
-                userDetails.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
 }
