@@ -5,18 +5,19 @@ import com.myday.model.Cart;
 import com.myday.model.User;
 import com.myday.repository.CartRepository;
 import com.myday.repository.UserRepository;
+import com.myday.request.LoginRequest;
 import com.myday.response.AuthResponse;
 import com.myday.service.CustomerUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -36,6 +37,7 @@ public class AuthController {
     @Autowired
     private CartRepository cartRepository;
 
+    @PostMapping("/signup")
     public ResponseEntity<AuthResponse> createUserHandler(@RequestBody User user) throws Exception {
         User isEmailExist = userRepository.findByEmail(user.getEmail());
         if (isEmailExist != null) {
@@ -64,5 +66,27 @@ public class AuthController {
         authResponse.setMessage("Register success");
         authResponse.setRole(savedUser.getRole());
         return new ResponseEntity<>(authResponse, HttpStatus.CREATED);
+    }
+
+    public ResponseEntity<AuthResponse> signin(@RequestBody LoginRequest req) {
+        String username = req.getEmail();
+        String password = req.getPassword();
+
+        Authentication authentication = authenticate(username, password);
+
+        return null;
+    }
+
+    private Authentication authenticate(String username, String password) {
+        UserDetails userDetails = customerUserDetailsService.loadUserByUsername(username);
+
+        if (userDetails == null) {
+            throw new BadCredentialsException("Invalid username...");
+        }
+        if (!passwordEncoder.matches(password, userDetails.getPassword())) {
+            throw new BadCredentialsException("Invalid password...");
+        }
+        return new org.springframework.security.core.userdetails.User(userDetails, null,
+                userDetails.getAuthorities());
     }
 }
