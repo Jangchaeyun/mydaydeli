@@ -2,6 +2,7 @@ package com.myday.controller;
 
 import com.myday.config.JwtProvider;
 import com.myday.model.Cart;
+import com.myday.model.USER_ROLE;
 import com.myday.model.User;
 import com.myday.repository.CartRepository;
 import com.myday.repository.UserRepository;
@@ -71,20 +72,23 @@ public class AuthController {
         return new ResponseEntity<>(authResponse, HttpStatus.CREATED);
     }
 
+    @PostMapping("/signin")
     public ResponseEntity<AuthResponse> signin(@RequestBody LoginRequest req) {
         String username = req.getEmail();
         String password = req.getPassword();
 
         Authentication authentication = authenticate(username, password);
 
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        String role = authorities.isEmpty() ? null : authorities.iterator().next().getAuthority();
+
         String jwt = jwtProvider.generateToken(authentication);
 
         AuthResponse authResponse = new AuthResponse();
         authResponse.setJwt(jwt);
         authResponse.setMessage("Register success");
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         
-        // authResponse.setRole(savedUser.getRole());
+         authResponse.setRole(USER_ROLE.valueOf(role));
 
         return new ResponseEntity<>(authResponse, HttpStatus.OK);
     }
