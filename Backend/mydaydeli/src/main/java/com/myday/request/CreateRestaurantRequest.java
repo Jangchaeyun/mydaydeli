@@ -4,7 +4,6 @@ import com.myday.model.Address;
 import com.myday.model.ContactInformation;
 import lombok.Data;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Data

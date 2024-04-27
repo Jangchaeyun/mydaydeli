@@ -41,7 +41,7 @@ public class RestaurantServiceImp implements RestaurantService{
         restaurant.setRegistrationDate(LocalDateTime.now());
         restaurant.setOwner(user);
 
-        return null;
+        return restaurantRepository.save(restaurant);
     }
 
     @Override
@@ -103,12 +103,22 @@ public class RestaurantServiceImp implements RestaurantService{
          dto.setDescription(restaurant.getDescription());
          dto.setImages(restaurant.getImages());
          dto.setTitle(restaurant.getName());
-         dto.setId(restaurant.getId());
+         dto.setId(restaurantId);
 
-         if (user.getFavorites().contains(dto)) {
-             user.getFavorites().remove(dto);
+         boolean isFavorited = false;
+         List<RestaurantDto> favorites = user.getFavorites();
+         for (RestaurantDto favorite : favorites) {
+             if (favorite.getId().equals(restaurantId)) {
+                 isFavorited = true;
+                 break;
+             }
          }
-         else user.getFavorites().add(dto);
+
+         if (isFavorited) {
+             favorites.removeIf(favorite -> favorite.getId().equals(restaurantId));
+         } else {
+             favorites.add(dto);
+         }
 
          userRepository.save(user);
         return dto;
