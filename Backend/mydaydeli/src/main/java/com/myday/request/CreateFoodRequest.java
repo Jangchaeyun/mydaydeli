@@ -2,9 +2,11 @@ package com.myday.request;
 
 import com.myday.model.Category;
 import com.myday.model.IngredientsItem;
+import lombok.Data;
 
 import java.util.List;
 
+@Data
 public class CreateFoodRequest {
     private String name;
     private String description;
