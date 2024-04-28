@@ -21,7 +21,7 @@ public class FoodServiceImp implements FoodService{
     @Override
     public Food createFood(CreateFoodRequest req, Category category, Restaurant restaurant) {
         Food food = new Food();
-        food.setFoodCategory(category)
+        food.setFoodCategory(category);
         food.setRestaurant(restaurant);
         food.setDescription(req.getDescription());
         food.setImages(req.getImages());
@@ -103,7 +103,7 @@ public class FoodServiceImp implements FoodService{
     }
 
     @Override
-    public Food updateAvailibility(Long foodId) throws Exception {
+    public Food updateAvailibilityStatus(Long foodId) throws Exception {
         Food food = findFoodById(foodId);
         food.setAvailable(!food.isAvailable());
         foodRepository.save(food);
