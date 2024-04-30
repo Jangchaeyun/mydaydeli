@@ -12,7 +12,7 @@ public interface IngredientService {
 
     public List<IngredientCategory> findIngredientCategoryByRestaurantId(Long id) throws Exception;
 
-    public IngredientsItem createIngredientsItem(Long restaurantId, String ingredientName, Long categoryId) throws Exception;
+    public IngredientsItem createIngredientItem(Long restaurantId, String ingredientName, Long categoryId) throws Exception;
 
     public List<IngredientsItem> findRestaurantIngredients(Long restaurantId);
 
