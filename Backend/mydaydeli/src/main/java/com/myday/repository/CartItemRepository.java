@@ -1,9 +1,9 @@
 package com.myday.repository;
 
 import com.myday.model.Cart;
+import com.myday.model.CartItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CartRepository extends JpaRepository<Cart, Long> {
-    public Cart findByCustomerId(Long userId);
+public interface CartItemRepository extends JpaRepository<CartItem, Long> {
 
 }
