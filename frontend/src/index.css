@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "HSSanTokki20-Regular";
-  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2405@1.0/HSSanTokki20-Regular.woff2")
+  font-family: "Ownglyph_meetme-Rg";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_1@1.0/Ownglyph_meetme-Rg.woff2")
     format("woff2");
   font-weight: normal;
   font-style: normal;
@@ -12,11 +12,23 @@
 
 body {
   margin: 0;
-  font-family: "HSSanTokki20-Regular";
+  font-family: "Ownglyph_meetme-Rg";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: "HSSanTokki20-Regular";
+  font-family: "Ownglyph_meetme-Rg";
+}
+
+h1 {
+  font-family: "Ownglyph_meetme-Rg";
+}
+
+span {
+  font-family: "Ownglyph_meetme-Rg";
+}
+
+p {
+  font-family: "Ownglyph_meetme-Rg";
 }

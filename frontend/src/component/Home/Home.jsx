@@ -1,5 +1,7 @@
 import React from "react";
 import "./Home.css";
+import "../../index.css";
+import MultiItemCarousel from "./MultiItemCarousel";
 
 const Home = () => {
   return (
@@ -13,6 +15,20 @@ const Home = () => {
         </div>
         <div className="cover absolute top-0 left-0 right-0"></div>
         <div className=""></div>
+      </section>
+      <section className="p-10 lg:py-10 lg:px-20">
+        <p className="text-2xl font-semibold text-gray-400 py-3 pb-10">
+          있기있는 메뉴
+        </p>
+        <MultiItemCarousel />
+      </section>
+      <section className="px-5 lg:px-20">
+        <h1 className="text-2xl font-semibold text-gray-400 py-3">
+          즐겨찾기를 통해 빠르게 주문해보세요!
+        </h1>
+        <div>
+          
+        </div>
       </section>
     </div>
   );
