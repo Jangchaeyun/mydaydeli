@@ -23,7 +23,7 @@ const Navbar = () => {
         </div>
         <div className="">
           <IconButton sx={{ fontSize: "1.5rem" }}>
-            <Badge color="primary" badgeContent={3}>
+            <Badge color="black" badgeContent={3}>
               <ShoppingCartIcon />
             </Badge>
           </IconButton>

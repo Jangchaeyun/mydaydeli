@@ -1,5 +1,7 @@
 import { Grid } from "@mui/material";
 import React from "react";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 
 const RestaurantDetails = () => {
   return (
@@ -32,6 +34,23 @@ const RestaurantDetails = () => {
               />
             </Grid>
           </Grid>
+        </div>
+        <div className="pt-3 pb-5">
+          <h1 className="text-4xl font-semibold">동대문 엽기떡볶이 본점</h1>
+          <p className="text-gray-500 mt-1">
+            맛있게 매콤한 동대문엽기떡볶이 본점(배달/포장) 매장입니다.
+            감사합니다.
+          </p>
+          <div className="space-y-3 mt-3">
+            <p className="text-gray-500 flex items-center gap-3">
+              <LocationOnIcon />
+              <span>서울 중구 다산로 265 럭키프라자 1층</span>
+            </p>
+            <p className="text-gray-500 flex items-center gap-3">
+              <CalendarTodayIcon />
+              <span>월~일: 오전11시 ~ 오후6시 (오늘)</span>
+            </p>
+          </div>
         </div>
       </section>
     </div>
