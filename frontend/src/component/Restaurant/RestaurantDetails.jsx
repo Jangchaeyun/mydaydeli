@@ -1,9 +1,37 @@
-import { Grid } from "@mui/material";
-import React from "react";
+import {
+  Divider,
+  FormControl,
+  FormControlLabel,
+  Grid,
+  Radio,
+  RadioGroup,
+  Typography,
+} from "@mui/material";
+import React, { useState } from "react";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import MenuCard from "./MenuCard";
+
+const categories = ["떡볶이", "닭발", "밀키트", "밥", "튀김"];
+
+const foodTypes = [
+  { label: "모두", value: "all", font: "Ownglyph_meetme-Rg" },
+  { label: "메인메뉴", value: "mainmenu", font: "Ownglyph_meetme-Rg" },
+  { label: "엽기닭발메뉴", value: "chickenfeet", font: "Ownglyph_meetme-Rg" },
+  { label: "밀키트", value: "mealkit", font: "Ownglyph_meetme-Rg" },
+  { label: "사이드", value: "side", font: "Ownglyph_meetme-Rg" },
+  { label: "음료", value: "beverage", font: "Ownglyph_meetme-Rg" },
+];
 
 const RestaurantDetails = () => {
+  const [foodType, setFoodType] = useState("all");
+
+  const handleFilter = (e) => {
+    console.log(e.target.value, e.target.name);
+  };
+
+  const menu = [1, 1, 1, 1, 1, 1, 1];
+
   return (
     <div className="px-5 lg:px-20">
       <section>
@@ -51,6 +79,76 @@ const RestaurantDetails = () => {
               <span>월~일: 오전11시 ~ 오후6시 (오늘)</span>
             </p>
           </div>
+        </div>
+      </section>
+      <Divider />
+      <section className="pt-[2rem] lg:flex relative">
+        <div className="space-y-10 lg:w-[20%] filter">
+          <div className="box space-y-5 lg:sticky top-28">
+            <div>
+              <Typography
+                fontFamily={"Ownglyph_meetme-Rg"}
+                variant="h5"
+                sx={{ paddingBottom: "1rem" }}
+              >
+                음식 타입
+              </Typography>
+              <FormControl
+                className="py-10 space-y-5 font"
+                component={"fieldset"}
+              >
+                <RadioGroup
+                  onChange={handleFilter}
+                  name="food_type"
+                  value={foodType}
+                >
+                  {foodTypes.map((item) => (
+                    <FormControlLabel
+                      key={item.value}
+                      value={item.value}
+                      control={<Radio />}
+                      label={item.label}
+                      fontFamily={"Ownglyph_meetme-Rg"}
+                    />
+                  ))}
+                </RadioGroup>
+              </FormControl>
+            </div>
+            <Divider />
+            <div>
+              <Typography
+                fontFamily={"Ownglyph_meetme-Rg"}
+                variant="h5"
+                sx={{ paddingBottom: "1rem" }}
+              >
+                음식 카테고리
+              </Typography>
+              <FormControl
+                className="py-10 space-y-5 font"
+                component={"fieldset"}
+              >
+                <RadioGroup
+                  onChange={handleFilter}
+                  name="food_type"
+                  value={foodType}
+                >
+                  {categories.map((item) => (
+                    <FormControlLabel
+                      key={item}
+                      value={item}
+                      control={<Radio />}
+                      label={item}
+                    />
+                  ))}
+                </RadioGroup>
+              </FormControl>
+            </div>
+          </div>
+        </div>
+        <div className="space-y-5 lg:w-[80%] lg:pl-10">
+          {menu.map((item) => (
+            <MenuCard />
+          ))}
         </div>
       </section>
     </div>
