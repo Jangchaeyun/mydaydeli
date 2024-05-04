@@ -5,8 +5,27 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Button from "@mui/material/Button";
+import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
+
+const demo = [
+  {
+    category: "메뉴 선택 (하나만)",
+    ingredients: ["엽기떡볶이", "엽기오뎅", "엽기반반"],
+  },
+  {
+    category: "맛 선택 (하나만)",
+    ingredients: ["착한맛", "초보맛", "덜매운맛", "오리지널", "매운맛"],
+  },
+  {
+    category: "토핑 추가",
+    ingredients: ["떡 추가", "오뎅 추가", "매추리알 추가", "치즈 추가"],
+  },
+];
 
 const MenuCard = () => {
+  const handleCheckBoxChange = (value) => {
+    console.log("value");
+  };
   return (
     <div>
       <Accordion>
@@ -33,8 +52,37 @@ const MenuCard = () => {
           </div>
         </AccordionSummary>
         <AccordionDetails>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          malesuada lacus ex, sit amet blandit leo lobortis eget.
+          <form>
+            <div className="flex gap-5 flex-wrap">
+              {demo.map((item) => (
+                <div>
+                  <p>{item.category}</p>
+                  <FormGroup>
+                    {item.ingredients.map((item) => (
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            onChange={() => handleCheckBoxChange(item)}
+                          />
+                        }
+                        label={item}
+                      />
+                    ))}
+                  </FormGroup>
+                </div>
+              ))}
+            </div>
+            <div className="pt-5">
+              <Button
+                variant="contained"
+                type="submit"
+                disabled={false}
+                style={{ fontFamily: "Ownglyph_meetme-Rg" }}
+              >
+                {true ? "장바구니에 담기" : "품절"}
+              </Button>
+            </div>
+          </form>
         </AccordionDetails>
       </Accordion>
     </div>
