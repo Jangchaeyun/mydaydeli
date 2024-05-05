@@ -12,13 +12,9 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String strectAddress;
+    private String streetAddress;
 
-    private String city;
+    private String detailAddress;
 
-    private String stateProvince;
-
-    private String postalCode;
-
-    private String country;
+    private String commonEntrancePassword;
 }
