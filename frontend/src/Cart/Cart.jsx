@@ -11,7 +11,7 @@ import React from "react";
 import CartItem from "./CartItem";
 import AddressCard from "./AddressCard";
 import AddLocationAltIcon from "@mui/icons-material/AddLocationAlt";
-import { ErrorMessage, Field, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 
 const style = {
@@ -48,7 +48,9 @@ const Cart = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const handleSubmit = () => {};
+  const handleSubmit = (value) => {
+    console.log("form value", value);
+  };
   return (
     <>
       <main className="lg:flex justify-between">
@@ -123,23 +125,53 @@ const Cart = () => {
             // validationSchema={validationSchema}
             onSubmit={handleSubmit}
           >
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <Field
-                  as={TextField}
-                  name="streetAddress"
-                  labal="도로명 주소"
-                  fullWidth
-                  variant="outlined"
-                  // error={!ErrorMessage("도로명 주소")}
-                  // helper={
-                  //   <ErrorMessage>
-                  //     {(msg) => <span className="text-red-600">{msg}</span>}
-                  //   </ErrorMessage>
-                  // }
-                />
+            <Form>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <Field
+                    fontFamily="Ownglyph_meetme-Rg"
+                    as={TextField}
+                    name="streetAddress"
+                    label="도로명 주소"
+                    fullWidth
+                    variant="outlined"
+                    // error={!ErrorMessage("도로명 주소")}
+                    // helper={
+                    //   <ErrorMessage>
+                    //     {(msg) => <span className="text-red-600">{msg}</span>}
+                    //   </ErrorMessage>
+                    // }
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Field
+                    fontFamily="Ownglyph_meetme-Rg"
+                    as={TextField}
+                    name="detailAddress"
+                    label="상세 주소"
+                    fullWidth
+                    variant="outlined"
+                    // error={!ErrorMessage("도로명 주소")}
+                    // helper={
+                    //   <ErrorMessage>
+                    //     {(msg) => <span className="text-red-600">{msg}</span>}
+                    //   </ErrorMessage>
+                    // }
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    color="primary"
+                    style={{ fontFamily: "Ownglyph_meetme-Rg" }}
+                    fullWidth
+                  >
+                    주문 여기로!!!
+                  </Button>
+                </Grid>
               </Grid>
-            </Grid>
+            </Form>
           </Formik>
         </Box>
       </Modal>
