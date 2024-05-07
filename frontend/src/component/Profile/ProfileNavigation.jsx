@@ -5,14 +5,14 @@ import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import EventIcon from "@mui/icons-material/Event";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { AddReaction } from "@mui/icons-material";
+import HomeIcon from "@mui/icons-material/Home";
 import { Divider, Drawer, useMediaQuery } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const menu = [
   { title: "주문목록", icon: <ShoppingBagIcon />, navigate: "orders" },
   { title: "즐겨찾기", icon: <FavoriteIcon />, navigate: "favorites" },
-  { title: "주소", icon: <AddReaction />, navigate: "address" },
+  { title: "주소", icon: <HomeIcon />, navigate: "address" },
   { title: "결제", icon: <AccountBalanceWalletIcon />, navigate: "payment" },
   {
     title: "알림",
@@ -20,7 +20,7 @@ const menu = [
     navigate: "notification",
   },
   { title: "이벤트", icon: <EventIcon />, navigate: "events" },
-  { title: "로그아웃", icon: <LogoutIcon /> },
+  { title: "로그아웃", icon: <LogoutIcon />, navigate: "" },
 ];
 const ProfileNavigation = ({ open, handleClose }) => {
   const isSmallScreen = useMediaQuery("(max-width:900px)");

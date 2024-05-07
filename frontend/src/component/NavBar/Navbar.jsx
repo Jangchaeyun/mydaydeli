@@ -5,8 +5,11 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Avatar, Badge, Box } from "@mui/material";
 import "./Navbar.css";
 import { purple } from "@mui/material/colors";
+import { Person } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   return (
     <Box
       sx={{ zIndex: 100 }}
@@ -22,7 +25,13 @@ const Navbar = () => {
           </IconButton>
         </div>
         <div className="">
-          <Avatar sx={{ bgcolor: "white", color: purple.A400 }}>D</Avatar>
+          {false ? (
+            <Avatar sx={{ bgcolor: "white", color: purple.A400 }}>D</Avatar>
+          ) : (
+            <IconButton onClick={() => navigate("/account/login")}>
+              <Person />
+            </IconButton>
+          )}
         </div>
         <div className="">
           <IconButton sx={{ fontSize: "1.5rem" }}>
