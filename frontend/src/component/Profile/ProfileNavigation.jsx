@@ -8,6 +8,8 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import HomeIcon from "@mui/icons-material/Home";
 import { Divider, Drawer, useMediaQuery } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../State/Authentication/Action";
 
 const menu = [
   { title: "주문목록", icon: <ShoppingBagIcon />, navigate: "orders" },
@@ -25,13 +27,19 @@ const menu = [
 const ProfileNavigation = ({ open, handleClose }) => {
   const isSmallScreen = useMediaQuery("(max-width:900px)");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const handleNavigate = (item) => {
-    navigate(`/my-profile/${item.navigate}`);
+    if (item.title === "로그아웃") {
+      dispatch(logout());
+      navigate("/");
+    } else navigate(`/my-profile/${item.title.toLowerCase()}`);
   };
+
   return (
     <div>
       <Drawer
-        variant={"permanent"}
+        variant={isSmallScreen ? "temporary" : "permanent"}
         onClose={handleClose}
         open={isSmallScreen ? open : "permanent"}
         anchor="left"

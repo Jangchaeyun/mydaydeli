@@ -24,6 +24,7 @@ const RegisterForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleSubmit = (values) => {
+    console.log("form values", values);
     dispatch(registerUser({ userData: values, navigate }));
   };
   return (
@@ -79,7 +80,6 @@ const RegisterForm = () => {
             <MenuItem value={"ROLE_RESTAURANT_OWNER"}>가게 주인</MenuItem>
           </Field>
           <Button
-            onClick={() => handleSubmit()}
             sx={{ mt: 2, padding: "1rem" }}
             className="mt-5"
             fullWidth

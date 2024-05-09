@@ -50,7 +50,7 @@ export const loginUser = (reqData) => async (dispatch) => {
     } else {
       reqData.navigate("/");
     }
-    dispatch({ type: LOGIN_SUCCESS, payload: data });
+    dispatch({ type: LOGIN_SUCCESS, payload: data.jwt });
     console.log("login sucess", data);
   } catch (error) {
     dispatch({ type: LOGIN_FAILURE, payload: error });
@@ -61,15 +61,15 @@ export const loginUser = (reqData) => async (dispatch) => {
 export const getUser = (jwt) => async (dispatch) => {
   dispatch({ type: GET_USER_REQUEST });
   try {
-    const { data } = await api.post(`${API_URL}/auth/signin`, {
+    const { data } = await api.get(`/api/users/profile`, {
       headers: {
-        Authentication: `Bearer ${jwt}`,
+        Authorization: `Bearer ${jwt}`,
       },
     });
-    dispatch({ type: GET_USER_SUCCESS, payload: data.jwt });
+    dispatch({ type: GET_USER_SUCCESS, payload: data });
     console.log("user profile", data);
   } catch (error) {
-    dispatch({ tyoe: GET_USER_FAILURE, payload: error });
+    dispatch({ type: GET_USER_FAILURE, payload: error });
     console.log("error", error);
   }
 };
@@ -97,7 +97,6 @@ export const addToFavorite =
   };
 
 export const logout = () => async (dispatch) => {
-  dispatch({ type: ADD_TO_FAVORITE_REQUEST });
   try {
     localStorage.clear();
     dispatch({ type: LOGOUT });
