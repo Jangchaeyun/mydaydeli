@@ -4,6 +4,7 @@ import {
   CREATE_INGREDIENT_SUCCESS,
   GET_INGREDIENT_CATEGORY_SUCCESS,
   GET_INGREDIENTS,
+  UPDATE_STOCK,
 } from "./ActionType";
 
 export const getIngredientsOfRestaurant = ({ id, jwt }) => {
@@ -89,6 +90,28 @@ export const getIngredientCategory = ({ id, jwt }) => {
       });
     } catch (error) {
       console.log("error", error);
+    }
+  };
+};
+
+export const updateStockOfIngredient = ({ id, jwt }) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await api.put(
+        `/api/admin/ingredients/${id}/stoke`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
+      );
+      dispatch({
+        type: UPDATE_STOCK,
+        payload: data,
+      });
+    } catch (error) {
+      console.log("error ", error);
     }
   };
 };
