@@ -33,7 +33,7 @@ const ProfileNavigation = ({ open, handleClose }) => {
     if (item.title === "로그아웃") {
       dispatch(logout());
       navigate("/");
-    } else navigate(`/my-profile/${item.title.toLowerCase()}`);
+    } else navigate(`/my-profile/${item.navigate}`);
   };
 
   return (

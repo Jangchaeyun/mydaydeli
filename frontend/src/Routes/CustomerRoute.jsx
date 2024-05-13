@@ -15,7 +15,7 @@ const CustomerRoute = () => {
         <Route path="/" element={<Home />} />
         <Route path="/account/:register" element={<Home />} />
         <Route
-          path="/restaurant/:streetAddress/:title/:id"
+          path="/restaurant/:streetAddress/:name/:id"
           element={<RestaurantDetails />}
         />
         <Route path="/cart" element={<Cart />} />
