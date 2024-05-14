@@ -15,5 +15,6 @@ public class CreateRestaurantRequest {
     private Address address;
     private ContactInformation contactInformation;
     private String openingHours;
+    private boolean open;
     private List<String> images;
 }

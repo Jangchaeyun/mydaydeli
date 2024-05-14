@@ -7,12 +7,16 @@ import {
   RadioGroup,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import MenuCard from "./MenuCard";
-
-const categories = ["떡볶이", "닭발", "밀키트", "밥", "튀김"];
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getRestaurantById,
+  getRestaurantsCategory,
+} from "../State/Restaurant/Action";
 
 const foodTypes = [
   { label: "모두", value: "all", font: "Ownglyph_meetme-Rg" },
@@ -25,10 +29,23 @@ const foodTypes = [
 
 const RestaurantDetails = () => {
   const [foodType, setFoodType] = useState("all");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const jwt = localStorage.getItem("jwt");
+  const { auth, restaurant } = useSelector((store) => store);
+
+  const { id } = useParams();
 
   const handleFilter = (e) => {
     console.log(e.target.value, e.target.name);
   };
+
+  console.log("restaurant", restaurant);
+
+  useEffect(() => {
+    dispatch(getRestaurantById({ jwt, restaurantId: id }));
+    dispatch(getRestaurantsCategory({ jwt, restaurantId: id }));
+  }, []);
 
   const menu = [1, 1, 1, 1, 1, 1, 1];
 
@@ -43,40 +60,45 @@ const RestaurantDetails = () => {
             <Grid item xs={12}>
               <img
                 className="w-full h-[40vh] object-cover"
-                src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20160923_167%2Fbooki0923_1474593200309Q9xC5_JPEG%2F0.jpg&type=sc960_832"
+                src={restaurant.restaurant?.images[0]}
                 alt=""
               />
             </Grid>
             <Grid item xs={12} lg={6}>
               <img
                 className="w-full h-[40vh] object-cover"
-                src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA1MDJfMTE1%2FMDAxNjgzMDE0MTIwMjcx.oYQXOv_yFxTCP6O2k_woJgfD96BH8LE9fCEEUDWEEM4g.pA_eFCBu9qgPlmcfP7Q6lGTFHClfDkXGVkrLzK1mV3cg.JPEG.19976415%2F20230325%25A3%25DF163528.jpg&type=sc960_832"
+                src={restaurant.restaurant?.images[1]}
                 alt=""
               />
             </Grid>
             <Grid item xs={12} lg={6}>
               <img
                 className="w-full h-[40vh] object-cover"
-                src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMDAzMjBfNTYg%2FMDAxNTg0NjcwNjEzODMw.bm3Zds0q44ujjtNCS7rj9JilXghv3fT6Nwh_y6OLUz0g.HXJvS0fczeugpEpO71NdulcFE1vwhooZezlC5koMHkUg.JPEG.gogi1017%2F81548B86-2E9B-4128-91B1-7BB72C18F337.jpg&type=sc960_832"
+                src={restaurant.restaurant?.images[2]}
                 alt=""
               />
             </Grid>
           </Grid>
         </div>
         <div className="pt-3 pb-5">
-          <h1 className="text-4xl font-semibold">동대문 엽기떡볶이 본점</h1>
+          <h1 className="text-4xl font-semibold">
+            {restaurant.restaurant?.name}
+          </h1>
           <p className="text-gray-500 mt-1">
-            맛있게 매콤한 동대문엽기떡볶이 본점(배달/포장) 매장입니다.
-            감사합니다.
+            {restaurant.restaurant?.description}
           </p>
           <div className="space-y-3 mt-3">
             <p className="text-gray-500 flex items-center gap-3">
               <LocationOnIcon />
-              <span>서울 중구 다산로 265 럭키프라자 1층</span>
+              <span>
+                {restaurant.restaurant?.address.streetAddress +
+                  " " +
+                  restaurant.restaurant?.address.detailAddress}
+              </span>
             </p>
             <p className="text-gray-500 flex items-center gap-3">
               <CalendarTodayIcon />
-              <span>월~일: 오전11시 ~ 오후6시 (오늘)</span>
+              <span>{restaurant.restaurant?.openingHours}</span>
             </p>
           </div>
         </div>
@@ -132,12 +154,12 @@ const RestaurantDetails = () => {
                   name="food_type"
                   value={foodType}
                 >
-                  {categories.map((item) => (
+                  {restaurant.categories.map((item) => (
                     <FormControlLabel
                       key={item}
                       value={item}
                       control={<Radio />}
-                      label={item}
+                      label={item.name}
                     />
                   ))}
                 </RadioGroup>
