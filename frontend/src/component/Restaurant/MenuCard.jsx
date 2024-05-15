@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionActions from "@mui/material/AccordionActions";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -6,31 +6,38 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Button from "@mui/material/Button";
 import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
+import { categoryIngredients } from "../util/categoryIngredients";
+import { useDispatch } from "react-redux";
+import { addItemToCart } from "../State/Cart/Action";
 
-const demo = [
-  {
-    category: "메뉴 선택 (하나만)",
-    ingredients: ["엽기떡볶이", "엽기오뎅", "엽기반반"],
-  },
-  {
-    category: "맛 선택 (하나만)",
-    ingredients: ["착한맛", "초보맛", "덜매운맛", "오리지널", "매운맛"],
-  },
-  {
-    category: "토핑 추가",
-    ingredients: [
-      "떡 추가",
-      "오뎅 추가",
-      "매추리알(5개) 추가",
-      "모짜치즈 추가",
-    ],
-  },
-];
+const MenuCard = ({ item }) => {
+  const [selectedIngredients, setSelectedIngredients] = useState([]);
+  const dispatch = useDispatch();
 
-const MenuCard = () => {
-  const handleCheckBoxChange = (value) => {
-    console.log("value");
+  const handleCheckBoxChange = (itemName) => {
+    if (selectedIngredients.includes(itemName)) {
+      setSelectedIngredients(
+        selectedIngredients.filter((item) => item !== itemName)
+      );
+    } else {
+      setSelectedIngredients({ ...selectedIngredients, itemName });
+    }
   };
+
+  const handleAddItemToCart = (e) => {
+    e.preventDefault();
+    const reqData = {
+      token: localStorage.getItem("jwt"),
+      cartItem: {
+        menuItemId: item.id,
+        quantity: 1,
+        ingredients: selectedIngredients,
+      },
+    };
+    dispatch(addItemToCart(reqData));
+    console.log("req data ", reqData);
+  };
+
   return (
     <div>
       <Accordion>
@@ -43,39 +50,42 @@ const MenuCard = () => {
             <div className="lg:flex items-center lg:gap-5">
               <img
                 className="w-[7rem] h-[7rem] object-cover"
-                src="https://newsimg.sedaily.com/2023/05/06/29PH1PD9A6_1.png"
+                src={item.images[0]}
                 alt=""
               />
               <div className="space-y-1 lg:space-y-5 lg:max-w-2xl">
-                <p className="font-semibold text-xl">엽기메뉴</p>
-                <p>14,000원</p>
-                <p className="text-gray-400">
-                  분모자떡볶이 선택 시, 떡이 분모자로 변경되어 제공됩니다.
-                </p>
+                <p className="font-semibold text-xl">{item.name}</p>
+                <p>{item.price.toLocaleString()}원</p>
+                <p className="text-gray-400">{item.description}</p>
               </div>
             </div>
           </div>
         </AccordionSummary>
         <AccordionDetails>
-          <form>
+          <form onSubmit={handleAddItemToCart}>
             <div className="flex gap-5 flex-wrap">
-              {demo.map((item) => (
-                <div>
-                  <p>{item.category}</p>
-                  <FormGroup>
-                    {item.ingredients.map((item) => (
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            onChange={() => handleCheckBoxChange(item)}
+              {Object.keys(categoryIngredients(item.ingredients)).map(
+                (category) => (
+                  <div>
+                    <p>{category}</p>
+                    <FormGroup>
+                      {categoryIngredients(item.ingredients)[category].map(
+                        (item) => (
+                          <FormControlLabel
+                            key={item.id}
+                            control={
+                              <Checkbox
+                                onChange={() => handleCheckBoxChange(item.name)}
+                              />
+                            }
+                            label={item.name}
                           />
-                        }
-                        label={item}
-                      />
-                    ))}
-                  </FormGroup>
-                </div>
-              ))}
+                        )
+                      )}
+                    </FormGroup>
+                  </div>
+                )
+              )}
             </div>
             <div className="pt-5">
               <Button
