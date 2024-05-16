@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Accordion from "@mui/material/Accordion";
-import AccordionActions from "@mui/material/AccordionActions";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -15,12 +14,13 @@ const MenuCard = ({ item }) => {
   const dispatch = useDispatch();
 
   const handleCheckBoxChange = (itemName) => {
+    console.log("value", itemName);
     if (selectedIngredients.includes(itemName)) {
       setSelectedIngredients(
         selectedIngredients.filter((item) => item !== itemName)
       );
     } else {
-      setSelectedIngredients({ ...selectedIngredients, itemName });
+      setSelectedIngredients([...selectedIngredients, itemName]);
     }
   };
 
@@ -29,7 +29,7 @@ const MenuCard = ({ item }) => {
     const reqData = {
       token: localStorage.getItem("jwt"),
       cartItem: {
-        menuItemId: item.id,
+        foodId: item.id,
         quantity: 1,
         ingredients: selectedIngredients,
       },

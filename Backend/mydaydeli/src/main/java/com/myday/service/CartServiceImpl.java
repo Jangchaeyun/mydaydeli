@@ -40,7 +40,7 @@ public class CartServiceImpl implements CartService{
 
         for (CartItem cartItem : cart.getItems()) {
             if (cartItem.getFood().equals(food)) {
-                int newQuantity = cartItem.getQuantity() + req.getQuantity();
+                int newQuantity = cartItem.getQuantity() * req.getQuantity();
                 return updateCartItemQuantity(cartItem.getId(), newQuantity);
             }
         }

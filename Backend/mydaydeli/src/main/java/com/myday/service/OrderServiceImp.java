@@ -47,7 +47,7 @@ public class OrderServiceImp implements OrderService{
         Order createdOrder = new Order();
         createdOrder.setCustomer(user);
         createdOrder.setCreatedAt(new Date());
-        createdOrder.setOrderStatus("PENDING");
+        createdOrder.setOrderStatus("주문서 확인 중");
         createdOrder.setDeliveryAddress(savedAddress);
         createdOrder.setRestaurant(restaurant);
 
@@ -79,10 +79,10 @@ public class OrderServiceImp implements OrderService{
     @Override
     public Order updateOrder(Long orderId, String orderStatus) throws Exception {
         Order order = findOrderById(orderId);
-        if (orderStatus.equals("OUT_FOR_DELIVERY")
-                || orderStatus.equals("DELIVERED")
-                || orderStatus.equals("COMPLETE")
-                || orderStatus.equals("PENDING"))
+        if (orderStatus.equals("배달 중")
+                || orderStatus.equals("배달 완료")
+                || orderStatus.equals("준비 중")
+                || orderStatus.equals("주문서 확인 중"))
         {
             order.setOrderStatus(orderStatus);
             return orderRepository.save(order);

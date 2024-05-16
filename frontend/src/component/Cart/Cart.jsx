@@ -13,6 +13,8 @@ import AddressCard from "./AddressCard";
 import AddLocationAltIcon from "@mui/icons-material/AddLocationAlt";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { createOrder } from "../State/Order/Action";
 
 export const style = {
   position: "absolute",
@@ -30,6 +32,7 @@ export const style = {
 const initialValues = {
   streetAddress: "",
   detailAddress: "",
+  commonEntrancePassword: "",
 };
 
 // const validationSchema = Yup.object.shape({
@@ -46,17 +49,33 @@ const Cart = () => {
     setOpen(true);
   };
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  const { cart, auth } = useSelector((store) => store);
+  const dispatch = useDispatch();
+
   const handleClose = () => setOpen(false);
-  const handleSubmit = (value) => {
-    console.log("form value", value);
+  const handleSubmit = (values) => {
+    const data = {
+      jwt: localStorage.getItem("jwt"),
+      order: {
+        restaurantId: cart.cartItems[0].food?.restaurant.id,
+        deliveryAddress: {
+          fullName: auth.user?.fullName,
+          streetAddress: values.streetAddress,
+          detailAddress: values.detailAddress,
+          commonEntrancePassword: values.commonEntrancePassword,
+        },
+      },
+    };
+    dispatch(createOrder(data));
+    console.log("form value", values);
   };
+
   return (
     <>
       <main className="lg:flex justify-between">
         <section className="lg:w-[30%] space-y-6 lg:min-h-screen pt-10">
-          {items.map((item) => (
-            <CartItem />
+          {cart.cartItems.map((item) => (
+            <CartItem item={item} />
           ))}
           <Divider />
           <div className="billDetails px-5 text-sm">
@@ -64,17 +83,17 @@ const Cart = () => {
             <div className="space-y-3">
               <div className="flex justify-between text-gray-400">
                 <p>주문 금액</p>
-                <p>14,000</p>
+                <p>{cart.cart.total.toLocaleString()}</p>
               </div>
               <div className="flex justify-between text-gray-400">
                 <p>배송비</p>
-                <p>3,000</p>
+                <p>무료</p>
               </div>
               <Divider />
             </div>
             <div className="flex justify-between text-gray-400">
               <p>총 금액</p>
-              <p>17,000원</p>
+              <p>{cart.cart.total.toLocaleString()}원</p>
             </div>
           </div>
         </section>
@@ -149,6 +168,22 @@ const Cart = () => {
                     as={TextField}
                     name="detailAddress"
                     label="상세 주소"
+                    fullWidth
+                    variant="outlined"
+                    // error={!ErrorMessage("도로명 주소")}
+                    // helper={
+                    //   <ErrorMessage>
+                    //     {(msg) => <span className="text-red-600">{msg}</span>}
+                    //   </ErrorMessage>
+                    // }
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Field
+                    fontFamily="Ownglyph_meetme-Rg"
+                    as={TextField}
+                    name="commonEntrancePassword"
+                    label="공통입구 비밀번호"
                     fullWidth
                     variant="outlined"
                     // error={!ErrorMessage("도로명 주소")}

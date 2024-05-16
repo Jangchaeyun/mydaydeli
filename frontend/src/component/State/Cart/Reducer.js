@@ -25,28 +25,28 @@ const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        cart: action.paylaad,
-        cartItems: action.paylaad.items,
+        cart: action.payload,
+        cartItems: action.payload.items,
       };
     case actionTypes.ADD_ITEM_TO_CART_SUCCESS:
       return {
         ...state,
         loading: false,
-        cartItems: [action.paylaad, ...state.cartItems],
+        cartItems: [action.payload, ...state.cartItems],
       };
     case actionTypes.UPDATE_CARTITEM_SUCCESS:
       return {
         ...state,
         loading: false,
         cartItems: state.cartItems.map((item) =>
-          item.id === action.paylaad.id ? action.paylaad : item
+          item.id === action.payload.id ? action.payload : item
         ),
       };
     case actionTypes.REMOVE_CARTITEM_SUCCESS:
       return {
         ...state,
         loading: false,
-        cartItems: state.cartItems.filter((item) => item.id !== action.paylaad),
+        cartItems: state.cartItems.filter((item) => item.id !== action.payload),
       };
     case actionTypes.FIND_CART_FAILURE:
     case actionTypes.UPDATE_CARTITEM_FAILURE:
@@ -54,7 +54,7 @@ const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        error: action.paylaad,
+        error: action.payload,
       };
     case LOGOUT:
       localStorage.removeItem("jwt");
