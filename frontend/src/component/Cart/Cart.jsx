@@ -83,7 +83,7 @@ const Cart = () => {
             <div className="space-y-3">
               <div className="flex justify-between text-gray-400">
                 <p>주문 금액</p>
-                <p>{cart.cart.total.toLocaleString()}</p>
+                <p>{cart.cart?.total.toLocaleString()}</p>
               </div>
               <div className="flex justify-between text-gray-400">
                 <p>배송비</p>
@@ -93,7 +93,7 @@ const Cart = () => {
             </div>
             <div className="flex justify-between text-gray-400">
               <p>총 금액</p>
-              <p>{cart.cart.total.toLocaleString()}원</p>
+              <p>{cart.cart?.total.toLocaleString()}원</p>
             </div>
           </div>
         </section>

@@ -18,7 +18,8 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public PaymentResponse createPaymentLink(Order order) throws StripeException {
         Stripe.apiKey = stripeSecretKey;
-        SessionCreateParams params = SessionCreateParams.builder().addPaymentMethodType(
+        SessionCreateParams params = SessionCreateParams.builder()
+                .addPaymentMethodType(
                 SessionCreateParams.
                         PaymentMethodType.CARD)
                 .setMode(SessionCreateParams.Mode.PAYMENT)
@@ -27,7 +28,7 @@ public class PaymentServiceImpl implements PaymentService {
                 .addLineItem(SessionCreateParams.LineItem.builder()
                         .setQuantity(1L).setPriceData(SessionCreateParams.LineItem.PriceData.builder()
                                 .setCurrency("krw")
-                                .setUnitAmount((long) order.getTotalAmount() * 100)
+                                .setUnitAmount((long) order.getTotalAmount())
                                 .setProductData(SessionCreateParams.LineItem.PriceData.ProductData.builder()
                                         .setName("mydaydeli")
                                         .build())

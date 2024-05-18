@@ -27,7 +27,7 @@ public class AdminOrderController {
             @RequestParam(required = false) String order_status,
             @RequestHeader("Authorization") String jwt) throws Exception {
         User user = userService.findUserByJwtToken(jwt);
-        List<Order> orders = orderService.getRestaurantOrder(id, order_status);
+        List<Order> orders = orderService.getRestaurantsOrder(id, order_status);
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 

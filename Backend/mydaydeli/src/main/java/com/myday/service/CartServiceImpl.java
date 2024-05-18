@@ -25,9 +25,6 @@ public class CartServiceImpl implements CartService{
     private CartItemRepository cartItemRepository;
 
     @Autowired
-    private FoodRepository foodRepository;
-
-    @Autowired
     private FoodService foodService;
 
     @Override

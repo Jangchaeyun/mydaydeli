@@ -31,6 +31,7 @@ public class OrderServiceImp implements OrderService{
 
     @Autowired
     private RestaurantService restaurantService;
+
     @Override
     public Order createOrder(OrderRequest order, User user) throws Exception {
         Address shippAddress = new Address();
@@ -54,7 +55,6 @@ public class OrderServiceImp implements OrderService{
         Cart cart = cartService.findCartByUserId(user.getId());
 
         List<OrderItem> orderItems = new ArrayList<>();
-
         for (CartItem cartItem : cart.getItems()) {
             OrderItem orderItem = new OrderItem();
             orderItem.setFood(cartItem.getFood());
@@ -64,11 +64,13 @@ public class OrderServiceImp implements OrderService{
 
             OrderItem savedOrderItem = orderItemRepository.save(orderItem);
             orderItems.add(savedOrderItem);
+
         }
         Long totalPrice = cartService.calculateCartTotals(cart);
 
         createdOrder.setItems(orderItems);
         createdOrder.setTotalPrice(totalPrice);
+        createdOrder.setTotalAmount(totalPrice);
 
         Order savedOrder = orderRepository.save(createdOrder);
         restaurant.getOrders().add(savedOrder);
@@ -103,7 +105,7 @@ public class OrderServiceImp implements OrderService{
     }
 
     @Override
-    public List<Order> getRestaurantOrder(Long restaurantId, String orderStatus) throws Exception {
+    public List<Order> getRestaurantsOrder(Long restaurantId, String orderStatus) throws Exception {
         List<Order> orders =  orderRepository.findByRestaurantId(restaurantId);
         if (orderStatus != null) {
             orders = orders.stream().filter(order ->
