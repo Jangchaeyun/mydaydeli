@@ -83,7 +83,7 @@ public class OrderServiceImp implements OrderService{
         Order order = findOrderById(orderId);
         if (orderStatus.equals("배달 중")
                 || orderStatus.equals("배달 완료")
-                || orderStatus.equals("준비 중")
+                || orderStatus.equals("조리 중")
                 || orderStatus.equals("주문서 확인 중"))
         {
             order.setOrderStatus(orderStatus);
