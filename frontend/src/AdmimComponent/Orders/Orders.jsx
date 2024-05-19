@@ -1,5 +1,13 @@
-import { Card, FormControl, RadioGroup, Typography } from "@mui/material";
+import {
+  Card,
+  FormControl,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  Typography,
+} from "@mui/material";
 import React, { useState } from "react";
+import OrderTable from "./OrderTable";
 
 const orderStatus = [
   { label: "조리 중", value: "PEDING" },
@@ -29,11 +37,19 @@ const Orders = () => {
             value={filterValue || "all"}
           >
             {orderStatus.map((item) => (
-              <FormControl></FormControl>
+              <FormControlLabel
+                style={{ fontFamily: "Ownglyph_meetme-Rg" }}
+                key={item.label}
+                value={item.value}
+                control={<Radio />}
+                label={item.label}
+                sx={{ color: "gray", fontFamily: "Ownglyph_meetme-Rg" }}
+              ></FormControlLabel>
             ))}
           </RadioGroup>
         </FormControl>
       </Card>
+      <OrderTable />
     </div>
   );
 };
