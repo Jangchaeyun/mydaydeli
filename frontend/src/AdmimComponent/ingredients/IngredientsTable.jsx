@@ -9,58 +9,55 @@ import {
   TableHead,
   TableRow,
   Paper,
+  IconButton,
 } from "@mui/material";
 import React from "react";
+import CreateIcon from "@mui/icons-material/Create";
+import { Delete } from "@mui/icons-material";
 
 const orders = [1, 1, 1, 1, 1];
 
-const OrderTable = () => {
+const IngredientsTable = () => {
   return (
     <Box>
       <Card className="mt-1">
-        <CardHeader title={"주문 목록"} sx={{ pt: 2, alignItems: "center" }} />
+        <CardHeader
+          title={"세부메뉴 관리"}
+          sx={{ pt: 2, alignItems: "center" }}
+          style={{ fontFamily: "Ownglyph_meetme-Rg" }}
+          action={
+            <IconButton aria-label="settings">
+              <CreateIcon />
+            </IconButton>
+          }
+        />
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell style={{ fontFamily: "Ownglyph_meetme-Rg" }}>
+                <TableCell
+                  align="left"
+                  style={{ fontFamily: "Ownglyph_meetme-Rg" }}
+                >
                   번호
                 </TableCell>
                 <TableCell
                   align="right"
                   style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                 >
-                  이미지
+                  이름
                 </TableCell>
                 <TableCell
                   align="right"
                   style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                 >
-                  주문인
+                  카테고리
                 </TableCell>
                 <TableCell
                   align="right"
                   style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                 >
-                  가격
-                </TableCell>
-                <TableCell
-                  align="right"
-                  style={{ fontFamily: "Ownglyph_meetme-Rg" }}
-                >
-                  메뉴
-                </TableCell>
-                <TableCell
-                  align="right"
-                  style={{ fontFamily: "Ownglyph_meetme-Rg" }}
-                >
-                  세부 메뉴
-                </TableCell>
-                <TableCell
-                  align="right"
-                  style={{ fontFamily: "Ownglyph_meetme-Rg" }}
-                >
-                  상태
+                  재고
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -87,12 +84,6 @@ const OrderTable = () => {
                     align="right"
                     style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                   >
-                    {"zzangsally@gmail.com"}
-                  </TableCell>
-                  <TableCell
-                    align="right"
-                    style={{ fontFamily: "Ownglyph_meetme-Rg" }}
-                  >
                     {"4000원"}
                   </TableCell>
                   <TableCell
@@ -100,18 +91,6 @@ const OrderTable = () => {
                     style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                   >
                     {"휘낭시에 4구 선물세트"}
-                  </TableCell>
-                  <TableCell
-                    align="right"
-                    style={{ fontFamily: "Ownglyph_meetme-Rg" }}
-                  >
-                    {""}
-                  </TableCell>
-                  <TableCell
-                    align="right"
-                    style={{ fontFamily: "Ownglyph_meetme-Rg" }}
-                  >
-                    {"조리 중"}
                   </TableCell>
                 </TableRow>
               ))}
@@ -123,4 +102,4 @@ const OrderTable = () => {
   );
 };
 
-export default OrderTable;
+export default IngredientsTable;
