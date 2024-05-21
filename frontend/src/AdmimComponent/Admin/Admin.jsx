@@ -24,7 +24,7 @@ const Admin = () => {
           <Route path="/category" element={<FoodCategory />} />
           <Route path="/ingredients" element={<Ingredients />} />
           <Route path="/event" element={<Events />} />
-          <Route path="/detail" element={<RestaurantDetail />} />
+          <Route path="/details" element={<RestaurantDetail />} />
         </Routes>
       </div>
     </div>

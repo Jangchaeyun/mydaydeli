@@ -154,6 +154,16 @@ const Cart = () => {
                     label="도로명 주소"
                     fullWidth
                     variant="outlined"
+                    InputProps={{
+                      style: {
+                        fontFamily: "Ownglyph_meetme-Rg",
+                      },
+                    }}
+                    InputLabelProps={{
+                      style: {
+                        fontFamily: "Ownglyph_meetme-Rg",
+                      },
+                    }}
                     // error={!ErrorMessage("도로명 주소")}
                     // helper={
                     //   <ErrorMessage>
@@ -170,6 +180,16 @@ const Cart = () => {
                     label="상세 주소"
                     fullWidth
                     variant="outlined"
+                    InputProps={{
+                      style: {
+                        fontFamily: "Ownglyph_meetme-Rg",
+                      },
+                    }}
+                    InputLabelProps={{
+                      style: {
+                        fontFamily: "Ownglyph_meetme-Rg",
+                      },
+                    }}
                     // error={!ErrorMessage("도로명 주소")}
                     // helper={
                     //   <ErrorMessage>
@@ -186,6 +206,16 @@ const Cart = () => {
                     label="공통입구 비밀번호"
                     fullWidth
                     variant="outlined"
+                    InputProps={{
+                      style: {
+                        fontFamily: "Ownglyph_meetme-Rg",
+                      },
+                    }}
+                    InputLabelProps={{
+                      style: {
+                        fontFamily: "Ownglyph_meetme-Rg",
+                      },
+                    }}
                     // error={!ErrorMessage("도로명 주소")}
                     // helper={
                     //   <ErrorMessage>

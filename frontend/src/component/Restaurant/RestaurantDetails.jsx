@@ -162,6 +162,11 @@ const RestaurantDetails = () => {
                       control={<Radio />}
                       label={item.label}
                       fontFamily={"Ownglyph_meetme-Rg"}
+                      sx={{
+                        "& .MuiFormControlLabel-label": {
+                          fontFamily: "Ownglyph_meetme-Rg",
+                        },
+                      }}
                     />
                   ))}
                 </RadioGroup>
@@ -191,6 +196,11 @@ const RestaurantDetails = () => {
                       value={item.name}
                       control={<Radio />}
                       label={item.name}
+                      sx={{
+                        "& .MuiFormControlLabel-label": {
+                          fontFamily: "Ownglyph_meetme-Rg",
+                        },
+                      }}
                     />
                   ))}
                 </RadioGroup>

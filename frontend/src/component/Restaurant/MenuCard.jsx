@@ -73,6 +73,11 @@ const MenuCard = ({ item }) => {
                         (item) => (
                           <FormControlLabel
                             key={item.id}
+                            sx={{
+                              "& .MuiFormControlLabel-label": {
+                                fontFamily: "Ownglyph_meetme-Rg",
+                              },
+                            }}
                             control={
                               <Checkbox
                                 onChange={() => handleCheckBoxChange(item.name)}
