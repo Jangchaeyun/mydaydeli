@@ -13,42 +13,23 @@ import { uploadImageToCloudinary } from "../util/UploadToCloudinary";
 
 const initialValues = {
   name: "",
-  streetAddress: "",
-  detailAddress: "",
   description: "",
-  cuisineType: "",
-  image: "",
-  email: "",
-  mobile: "",
-  twitter: "",
-  instagram: "",
-  openingHours: "월-금 : 오전 9:00 - 오후 12:00",
-  images: [],
+  price: "",
+  category: "",
+  restaurantId: "",
+  vegetarian: true,
+  seasonal: false,
+  ingredients: [],
+  imaegs: [],
 };
 
-const CreateRestaurantForm = () => {
+const CreateMenuForm = () => {
   const [uploadImage, setUploadImage] = useState(false);
   const formik = useFormik({
     initialValues,
     onSubmit: (values) => {
-      const data = {
-        name: values.name,
-        description: values.description,
-        cuisineType: values.cuisineType,
-        address: {
-          streetAddress: values.streetAddress,
-          detailAddress: values.detailAddress,
-        },
-        contactInformation: {
-          email: values.email,
-          mobile: values.mobile,
-          twitter: values.twitter,
-          instagram: values.instagram,
-        },
-        openingHours: values.openingHours,
-        images: values.images,
-      };
-      console.log("data --- ", data);
+      values.restaurantId = 2;
+      console.log("data --- ", values);
     },
   });
 
@@ -71,7 +52,7 @@ const CreateRestaurantForm = () => {
     <div className="py-10 px-5 lg:flex items-center justify-center min-h-screen">
       <div className="lg:max-w-4xl">
         <h1 className="font-bold text-2xl text-center py-2">
-          새로운 음식점 추가
+          새로운 메뉴 추가
         </h1>
         <form onSubmit={formik.handleSubmit} className="space-y-4">
           <Grid container spacing={2}>
@@ -163,12 +144,12 @@ const CreateRestaurantForm = () => {
             <Grid item xs={12} lg={6}>
               <TextField
                 fullWidth
-                id="cuisineType"
-                name="cuisineType"
-                label="음식점 종류"
+                id="price"
+                name="price"
+                label="가격"
                 variant="outlined"
                 onChange={formik.handleChange}
-                value={formik.values.cuisineType}
+                value={formik.values.price}
                 InputProps={{
                   style: {
                     fontFamily: "Ownglyph_meetme-Rg",
@@ -184,12 +165,12 @@ const CreateRestaurantForm = () => {
             <Grid item xs={12} lg={6}>
               <TextField
                 fullWidth
-                id="openingHours"
-                name="openingHours"
-                label="운영 시간"
+                id="category"
+                name="category"
+                label="음식 카테고리"
                 variant="outlined"
                 onChange={formik.handleChange}
-                value={formik.values.openingHours}
+                value={formik.values.category}
                 InputProps={{
                   style: {
                     fontFamily: "Ownglyph_meetme-Rg",
@@ -205,12 +186,12 @@ const CreateRestaurantForm = () => {
             <Grid item xs={12}>
               <TextField
                 fullWidth
-                id="streetAddress"
-                name="streetAddress"
+                id="ingredients"
+                name="ingredients"
                 label="도로명 주소"
                 variant="outlined"
                 onChange={formik.handleChange}
-                value={formik.values.streetAddress}
+                value={formik.values.ingredients}
                 InputProps={{
                   style: {
                     fontFamily: "Ownglyph_meetme-Rg",
@@ -344,4 +325,4 @@ const CreateRestaurantForm = () => {
   );
 };
 
-export default CreateRestaurantForm;
+export default CreateMenuForm;
