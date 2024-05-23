@@ -1,9 +1,16 @@
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import {
+  Box,
   Button,
+  Chip,
   CircularProgress,
+  FormControl,
   Grid,
   IconButton,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+  Select,
   TextField,
 } from "@mui/material";
 import { Formik, useFormik } from "formik";
@@ -16,11 +23,22 @@ const initialValues = {
   description: "",
   price: "",
   category: "",
-  restaurantId: "",
+  restaurantId: 2,
   vegetarian: true,
   seasonal: false,
   ingredients: [],
-  imaegs: [],
+  images: [],
+};
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
 };
 
 const CreateMenuForm = () => {
@@ -163,151 +181,148 @@ const CreateMenuForm = () => {
               ></TextField>
             </Grid>
             <Grid item xs={12} lg={6}>
-              <TextField
-                fullWidth
-                id="category"
-                name="category"
-                label="음식 카테고리"
-                variant="outlined"
-                onChange={formik.handleChange}
-                value={formik.values.category}
-                InputProps={{
-                  style: {
-                    fontFamily: "Ownglyph_meetme-Rg",
-                  },
-                }}
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "Ownglyph_meetme-Rg",
-                  },
-                }}
-              ></TextField>
+              <FormControl fullWidth>
+                <InputLabel
+                  id="demo-simple-select-label"
+                  sx={{ fontFamily: "Ownglyph_meetme-Rg" }}
+                >
+                  음식 카테고리
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={formik.values.category}
+                  label="카테고리"
+                  onChange={formik.handleChange}
+                  name="category"
+                >
+                  <MenuItem
+                    value={10}
+                    sx={{ fontFamily: "Ownglyph_meetme-Rg" }}
+                  >
+                    Ten
+                  </MenuItem>
+                  <MenuItem
+                    value={20}
+                    sx={{ fontFamily: "Ownglyph_meetme-Rg" }}
+                  >
+                    Twenty
+                  </MenuItem>
+                  <MenuItem
+                    value={30}
+                    sx={{ fontFamily: "Ownglyph_meetme-Rg" }}
+                  >
+                    Thirty
+                  </MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                fullWidth
-                id="ingredients"
-                name="ingredients"
-                label="도로명 주소"
-                variant="outlined"
-                onChange={formik.handleChange}
-                value={formik.values.ingredients}
-                InputProps={{
-                  style: {
-                    fontFamily: "Ownglyph_meetme-Rg",
-                  },
-                }}
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "Ownglyph_meetme-Rg",
-                  },
-                }}
-              ></TextField>
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                id="detailAddress"
-                name="detailAddress"
-                label="상세 주소"
-                variant="outlined"
-                onChange={formik.handleChange}
-                value={formik.values.detailAddress}
-                InputProps={{
-                  style: {
-                    fontFamily: "Ownglyph_meetme-Rg",
-                  },
-                }}
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "Ownglyph_meetme-Rg",
-                  },
-                }}
-              ></TextField>
-            </Grid>
-            <Grid item xs={12} lg={6}>
-              <TextField
-                fullWidth
-                id="email"
-                name="email"
-                label="이메일"
-                variant="outlined"
-                onChange={formik.handleChange}
-                value={formik.values.email}
-                InputProps={{
-                  style: {
-                    fontFamily: "Ownglyph_meetme-Rg",
-                  },
-                }}
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "Ownglyph_meetme-Rg",
-                  },
-                }}
-              ></TextField>
+              <FormControl fullWidth>
+                <InputLabel
+                  id="demo-multiple-chip-label"
+                  sx={{ fontFamily: "Ownglyph_meetme-Rg" }}
+                >
+                  세부 메뉴
+                </InputLabel>
+                <Select
+                  labelId="demo-multiple-chip-label"
+                  id="demo-multiple-chip"
+                  name="ingredients"
+                  multiple
+                  value={formik.values.ingredients}
+                  onChange={formik.handleChange}
+                  input={
+                    <OutlinedInput
+                      id="select-multiple-chip"
+                      label="세부 매뉴"
+                    />
+                  }
+                  sx={{ fontFamily: "Ownglyph_meetme-Rg" }}
+                  renderValue={(selected) => (
+                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                      {selected.map((value) => (
+                        <Chip key={value} label={value} />
+                      ))}
+                    </Box>
+                  )}
+                  // MenuProps={MenuProps}
+                >
+                  {["하트일지초", "숫자초"].map((name, index) => (
+                    <MenuItem
+                      key={name}
+                      value={name}
+                      sx={{ fontFamily: "Ownglyph_meetme-Rg" }}
+                    >
+                      {name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </Grid>
             <Grid item xs={12} lg={6}>
-              <TextField
-                fullWidth
-                id="mobile"
-                name="mobile"
-                label="모바일"
-                variant="outlined"
-                onChange={formik.handleChange}
-                value={formik.values.mobile}
-                InputProps={{
-                  style: {
-                    fontFamily: "Ownglyph_meetme-Rg",
-                  },
-                }}
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "Ownglyph_meetme-Rg",
-                  },
-                }}
-              ></TextField>
+              <FormControl fullWidth>
+                <InputLabel
+                  id="demo-simple-select-label"
+                  sx={{ fontFamily: "Ownglyph_meetme-Rg" }}
+                >
+                  채식주의자
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="vegetarian"
+                  value={formik.values.vegetarian}
+                  label="채식주의자"
+                  onChange={formik.handleChange}
+                  name="vegetarian"
+                  sx={{ fontFamily: "Ownglyph_meetme-Rg" }}
+                >
+                  <MenuItem
+                    value={true}
+                    sx={{ fontFamily: "Ownglyph_meetme-Rg" }}
+                  >
+                    가능
+                  </MenuItem>
+                  <MenuItem
+                    value={false}
+                    sx={{ fontFamily: "Ownglyph_meetme-Rg" }}
+                  >
+                    불가능
+                  </MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
             <Grid item xs={12} lg={6}>
-              <TextField
-                fullWidth
-                id="instagram"
-                name="instagram"
-                label="인스타그램"
-                variant="outlined"
-                onChange={formik.handleChange}
-                value={formik.values.instagram}
-                InputProps={{
-                  style: {
-                    fontFamily: "Ownglyph_meetme-Rg",
-                  },
-                }}
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "Ownglyph_meetme-Rg",
-                  },
-                }}
-              ></TextField>
-            </Grid>
-            <Grid item xs={12} lg={6}>
-              <TextField
-                fullWidth
-                id="twitter"
-                name="twitter"
-                label="X(twitter)"
-                variant="outlined"
-                onChange={formik.handleChange}
-                value={formik.values.twitter}
-                InputProps={{
-                  style: {
-                    fontFamily: "Ownglyph_meetme-Rg",
-                  },
-                }}
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "Ownglyph_meetme-Rg",
-                  },
-                }}
-              ></TextField>
+              <FormControl fullWidth>
+                <InputLabel
+                  id="demo-simple-select-label"
+                  sx={{ fontFamily: "Ownglyph_meetme-Rg" }}
+                >
+                  계절음식
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="seasonal"
+                  value={formik.values.seasonal}
+                  label="계절음식"
+                  onChange={formik.handleChange}
+                  name="seasonal"
+                  sx={{ fontFamily: "Ownglyph_meetme-Rg" }}
+                >
+                  <MenuItem
+                    value={true}
+                    sx={{ fontFamily: "Ownglyph_meetme-Rg" }}
+                  >
+                    예
+                  </MenuItem>
+                  <MenuItem
+                    value={false}
+                    sx={{ fontFamily: "Ownglyph_meetme-Rg" }}
+                  >
+                    아니요
+                  </MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
           </Grid>
           <Button
