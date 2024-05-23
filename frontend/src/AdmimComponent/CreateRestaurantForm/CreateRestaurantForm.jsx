@@ -6,7 +6,7 @@ import {
   IconButton,
   TextField,
 } from "@mui/material";
-import { Formik, useFormik } from "formik";
+import { useFormik } from "formik";
 import React, { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { uploadImageToCloudinary } from "../util/UploadToCloudinary";
