@@ -1,19 +1,13 @@
 import { Button, Grid, TextField } from "@mui/material";
 import React, { useState } from "react";
 
-const CreateFoodCategoryForm = () => {
+const CreateIngredientCategoryForm = () => {
   const [formData, setFormData] = useState({
-    categoryName: "",
-    restaurantId: "",
+    name: "",
   });
 
   const handleSubmit = () => {
-    const data = {
-      name: formData.categoryName,
-      restaurantId: {
-        id: 1,
-      },
-    };
+    const data = {};
     console.log(data);
   };
 
@@ -29,19 +23,19 @@ const CreateFoodCategoryForm = () => {
     <div className="">
       <div className="p-5">
         <h1 className="text-gray-400 text-center text-xl pb-10">
-          카테고리 만들기
+          세부메뉴 카테고리 만들기
         </h1>
         <form className="space-y-5" onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
                 fullWidth
-                id="categoryName"
-                name="categoryName"
-                label="메뉴 카테고리"
+                id="name"
+                name="name"
+                label="세부메뉴 카테고리"
                 variant="outlined"
                 onChange={handleInputChange}
-                value={formData.categoryName}
+                value={formData.name}
                 InputProps={{
                   style: {
                     fontFamily: "Ownglyph_meetme-Rg",
@@ -60,7 +54,7 @@ const CreateFoodCategoryForm = () => {
             variant="contained"
             type="submit"
           >
-            카테고리 만들기
+            세부메뉴 카테고리 만들기
           </Button>
         </form>
       </div>
@@ -68,4 +62,4 @@ const CreateFoodCategoryForm = () => {
   );
 };
 
-export default CreateFoodCategoryForm;
+export default CreateIngredientCategoryForm;

@@ -61,7 +61,8 @@ const CreateIngredientForm = () => {
                   },
                 }}
               ></TextField>
-
+            </Grid>
+            <Grid item xs={12}>
               <FormControl fullWidth>
                 <InputLabel
                   id="demo-simple-select-label"
@@ -75,7 +76,7 @@ const CreateIngredientForm = () => {
                   value={formData.ingredientCategoryId}
                   label="카테고리"
                   onChange={handleInputChange}
-                  name="category"
+                  name="ingredientCategoryId"
                 >
                   <MenuItem
                     value={10}
