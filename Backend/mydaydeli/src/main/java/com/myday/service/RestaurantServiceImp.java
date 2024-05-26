@@ -128,7 +128,7 @@ public class RestaurantServiceImp implements RestaurantService{
     @Override
     public Restaurant updateRestaurantStatus(Long id) throws Exception {
         Restaurant restaurant = findRestaurantById(id);
-        restaurant.setOpen(restaurant.isOpen());
+        restaurant.setOpen(!restaurant.isOpen());
         return restaurantRepository.save(restaurant);
     }
 }
