@@ -21,7 +21,6 @@ function App() {
 
   useEffect(() => {
     dispatch(getRestaurantByUserId(auth.jwt || jwt));
-    
   }, [auth.user]);
   return (
     <ThemeProvider theme={darkTheme}>
