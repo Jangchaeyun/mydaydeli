@@ -24,6 +24,7 @@ public class Restaurant {
 
     private String name;
 
+    @Column(length = 2000)
     private String description;
 
     private String cuisineType;

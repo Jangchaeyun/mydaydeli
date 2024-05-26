@@ -1,5 +1,6 @@
 import { Box, Button, Grid, Modal, TextField } from "@mui/material";
-import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import dayjs from "dayjs";
 import React from "react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -16,19 +17,25 @@ const style = {
   p: 4,
 };
 
+const initialValues = {
+  image: "",
+  location: "",
+  name: "",
+  startedAt: null,
+  endsAt: null,
+};
+
 const Events = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [formValues, setFormValues] = React.useState({
-    image: "",
-    location: "",
-    name: "",
-    startedAt: null,
-    endsAt: null,
-  });
+  const [formValues, setFormValues] = React.useState(initialValues);
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("submit ", formValues);
+    setFormValues(initialValues);
+  };
 
   const handleFormChange = (e) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
@@ -89,12 +96,12 @@ const Events = () => {
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DateTimePicker
                       rederInput={(props) => <TextField {...props} />}
-                      label="시작날짜와 시간"
+                      label="시작 날짜와 시간"
                       value={formValues.startedAt}
                       onChange={(newValue) =>
                         handleDateChange(newValue, "startedAt")
                       }
-                      inputFormat="MM/dd/yyyy hh:mm a"
+                      inputFormat="MM/dd/yyyy hh:mm aa"
                       className="w-full"
                       sx={{ width: "100%" }}
                     />
@@ -104,12 +111,12 @@ const Events = () => {
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DateTimePicker
                       rederInput={(props) => <TextField {...props} />}
-                      label="마지막날짜와 시간"
+                      label="마지막 날짜와 시간"
                       value={formValues.endsAt}
                       onChange={(newValue) =>
                         handleDateChange(newValue, "endsAt")
                       }
-                      inputFormat="MM/dd/yyyy hh:mm a"
+                      inputFormat="MM/dd/yyyy hh:mm aa"
                       className="w-full"
                       sx={{ width: "100%" }}
                     />
