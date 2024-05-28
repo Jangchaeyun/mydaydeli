@@ -35,7 +35,7 @@ const IngredientCategoryTable = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
-  const { restaurant } = useSelector((store) => store);
+  const { restaurant, ingredients } = useSelector((store) => store);
   const jwt = localStorage.getItem("jwt");
 
   useEffect(() => {
@@ -73,9 +73,9 @@ const IngredientCategoryTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {orders.map((row) => (
+              {ingredients.category.map((item) => (
                 <TableRow
-                  key={row.name}
+                  key={item.name}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell
@@ -83,13 +83,13 @@ const IngredientCategoryTable = () => {
                     scope="row"
                     style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                   >
-                    {1}
+                    {item.id}
                   </TableCell>
                   <TableCell
                     align="left"
                     style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                   >
-                    {"name"}
+                    {item.name}
                   </TableCell>
                 </TableRow>
               ))}

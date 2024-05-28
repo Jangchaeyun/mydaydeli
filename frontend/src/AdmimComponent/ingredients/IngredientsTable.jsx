@@ -11,11 +11,17 @@ import {
   Paper,
   IconButton,
   Modal,
+  Button,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import CreateIcon from "@mui/icons-material/Create";
 import { Delete } from "@mui/icons-material";
 import CreateIngredientForm from "./CreateIngredientForm";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getIngredientsOfRestaurant,
+  updateStockOfIngredient,
+} from "../../component/State/Ingredients/Action";
 
 const orders = [1, 1, 1, 1, 1];
 const style = {
@@ -29,10 +35,25 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+
 const IngredientsTable = () => {
+  const dispatch = useDispatch();
+  const jwt = localStorage.getItem("jwt");
+  const { restaurant, ingredients } = useSelector((store) => store);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  useEffect(() => {
+    dispatch(
+      getIngredientsOfRestaurant({ jwt, id: restaurant.usersRestaurant.id })
+    );
+  }, []);
+
+  const handleUpdateStoke = (id) => {
+    dispatch(updateStockOfIngredient({ id, jwt }));
+  };
+
   return (
     <Box>
       <Card className="mt-1">
@@ -51,25 +72,25 @@ const IngredientsTable = () => {
             <TableHead>
               <TableRow>
                 <TableCell
-                  align="left"
+                  align="center"
                   style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                 >
                   번호
                 </TableCell>
                 <TableCell
-                  align="right"
+                  align="center"
                   style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                 >
                   이름
                 </TableCell>
                 <TableCell
-                  align="right"
+                  align="center"
                   style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                 >
                   카테고리
                 </TableCell>
                 <TableCell
-                  align="right"
+                  align="center"
                   style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                 >
                   재고
@@ -77,35 +98,41 @@ const IngredientsTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {orders.map((row) => (
+              {ingredients.ingredients.map((item) => (
                 <TableRow
-                  key={row.name}
+                  key={item.name}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell
+                    align="center"
                     component="th"
                     scope="row"
                     style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                   >
-                    {1}
+                    {item.id}
                   </TableCell>
                   <TableCell
-                    align="right"
+                    align="center"
                     style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                   >
-                    {"image"}
+                    {item.name}
                   </TableCell>
                   <TableCell
-                    align="right"
+                    align="center"
                     style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                   >
-                    {"4000원"}
+                    {item.category.name}
                   </TableCell>
                   <TableCell
-                    align="right"
+                    align="center"
                     style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                   >
-                    {"휘낭시에 4구 선물세트"}
+                    <Button
+                      onClick={() => handleUpdateStoke(item.id)}
+                      style={{ fontFamily: "Ownglyph_meetme-Rg" }}
+                    >
+                      {item.inStoke ? "있음" : "없음"}
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}

@@ -8,27 +8,26 @@ import {
   TextField,
 } from "@mui/material";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createIngredient } from "../../component/State/Ingredients/Action";
 
 const CreateIngredientForm = () => {
+  const { restaurant, ingredients } = useSelector((store) => store);
   const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt");
   const [formData, setFormData] = useState({
     name: "",
-    ingredientCategoryId: "",
+    categoryId: "",
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = {
-      name: formData.categoryName,
-      restaurantId: {
-        id: 1,
-      },
+      ...formData,
+      restaurantId: restaurant.usersRestaurant.id,
     };
-    console.log(data);
     dispatch(createIngredient({ data, jwt }));
+    console.log(data);
   };
 
   const handleInputChange = (e) => {
@@ -82,26 +81,17 @@ const CreateIngredientForm = () => {
                   value={formData.ingredientCategoryId}
                   label="카테고리"
                   onChange={handleInputChange}
-                  name="ingredientCategoryId"
+                  name="categoryId"
+                  sx={{ fontFamily: "Ownglyph_meetme-Rg" }}
                 >
-                  <MenuItem
-                    value={10}
-                    sx={{ fontFamily: "Ownglyph_meetme-Rg" }}
-                  >
-                    Ten
-                  </MenuItem>
-                  <MenuItem
-                    value={20}
-                    sx={{ fontFamily: "Ownglyph_meetme-Rg" }}
-                  >
-                    Twenty
-                  </MenuItem>
-                  <MenuItem
-                    value={30}
-                    sx={{ fontFamily: "Ownglyph_meetme-Rg" }}
-                  >
-                    Thirty
-                  </MenuItem>
+                  {ingredients.category.map((item) => (
+                    <MenuItem
+                      value={item.id}
+                      sx={{ fontFamily: "Ownglyph_meetme-Rg" }}
+                    >
+                      {item.name}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             </Grid>
@@ -111,7 +101,7 @@ const CreateIngredientForm = () => {
             variant="contained"
             type="submit"
           >
-            세부 메뉸 만들기
+            세부 메뉴 만들기
           </Button>
         </form>
       </div>

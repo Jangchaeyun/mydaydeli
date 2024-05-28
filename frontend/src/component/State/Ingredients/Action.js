@@ -52,15 +52,11 @@ export const createIngredientCategory = ({ data, jwt }) => {
   console.log("data ", data, "jwt", jwt);
   return async (dispatch) => {
     try {
-      const response = await api.post(
-        `/api/admin/ingredients/caategory`,
-        data,
-        {
-          headers: {
-            Authorization: `Bearer ${jwt}`,
-          },
-        }
-      );
+      const response = await api.post(`/api/admin/ingredients/category`, data, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      });
       console.log("create ingredients category", response.data);
       dispatch({
         type: CREATE_INGREDIENT_CATEGORY_SUCCESS,

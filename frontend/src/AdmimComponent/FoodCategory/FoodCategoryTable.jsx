@@ -68,13 +68,13 @@ const FoodCategoryTable = () => {
             <TableHead>
               <TableRow>
                 <TableCell
-                  align="left"
+                  align="center"
                   style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                 >
                   번호
                 </TableCell>
                 <TableCell
-                  align="left"
+                  align="center"
                   style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                 >
                   이름
@@ -88,6 +88,7 @@ const FoodCategoryTable = () => {
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell
+                    align="center"
                     component="th"
                     scope="row"
                     style={{ fontFamily: "Ownglyph_meetme-Rg" }}
@@ -95,7 +96,7 @@ const FoodCategoryTable = () => {
                     {item.id}
                   </TableCell>
                   <TableCell
-                    align="left"
+                    align="center"
                     style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                   >
                     {item.name}

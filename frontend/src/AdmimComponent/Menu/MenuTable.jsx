@@ -10,16 +10,37 @@ import {
   TableRow,
   Paper,
   IconButton,
+  Avatar,
+  Chip,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import CreateIcon from "@mui/icons-material/Create";
 import { Delete } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getMenuItemsByRestaurantId } from "../../component/State/Menu/Action";
 
 const orders = [1, 1, 1, 1, 1];
 
 const MenuTable = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const jwt = localStorage.getItem("jwt");
+  const { restaurant, menu, ingredients } = useSelector((store) => store);
+
+  useEffect(() => {
+    dispatch(
+      getMenuItemsByRestaurantId({
+        jwt,
+        restaurantId: restaurant.usersRestaurant.id,
+        vegetarian: false,
+        nonveg: false,
+        seasonal: false,
+        foodCategory: "",
+      })
+    );
+  }, []);
+
   return (
     <Box>
       <Card className="mt-1">
@@ -41,37 +62,43 @@ const MenuTable = () => {
             <TableHead>
               <TableRow>
                 <TableCell
-                  align="left"
+                  align="center"
+                  style={{ fontFamily: "Ownglyph_meetme-Rg" }}
+                >
+                  번호
+                </TableCell>
+                <TableCell
+                  align="center"
                   style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                 >
                   이미지
                 </TableCell>
                 <TableCell
-                  align="right"
+                  align="center"
                   style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                 >
                   메뉴
                 </TableCell>
                 <TableCell
-                  align="right"
+                  align="center"
                   style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                 >
                   세부 메뉴
                 </TableCell>
                 <TableCell
-                  align="right"
+                  align="center"
                   style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                 >
                   가격
                 </TableCell>
                 <TableCell
-                  align="right"
+                  align="center"
                   style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                 >
                   재고
                 </TableCell>
                 <TableCell
-                  align="right"
+                  align="center"
                   style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                 >
                   삭제
@@ -79,9 +106,9 @@ const MenuTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {orders.map((row) => (
+              {menu.menuItems.map((item) => (
                 <TableRow
-                  key={row.name}
+                  key={item.name}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell
@@ -89,34 +116,44 @@ const MenuTable = () => {
                     scope="row"
                     style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                   >
-                    {1}
+                    {item.id}
                   </TableCell>
                   <TableCell
-                    align="right"
+                    align="center"
                     style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                   >
-                    {"image"}
+                    <Avatar src={item.images[0]}></Avatar>
                   </TableCell>
                   <TableCell
-                    align="right"
+                    align="center"
+                    component="th"
+                    scope="row"
                     style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                   >
-                    {"zzangsally@gmail.com"}
+                    {item.name}
                   </TableCell>
                   <TableCell
-                    align="right"
+                    align="center"
                     style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                   >
-                    {"4000원"}
+                    {item.ingredients.map((ingredient) => (
+                      <Chip label={ingredient.name} />
+                    ))}
                   </TableCell>
                   <TableCell
-                    align="right"
+                    align="center"
                     style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                   >
-                    {"휘낭시에 4구 선물세트"}
+                    {item.price.toLocaleString()}원
                   </TableCell>
                   <TableCell
-                    align="right"
+                    align="center"
+                    style={{ fontFamily: "Ownglyph_meetme-Rg" }}
+                  >
+                    {item.available ? "있음" : "없음"}
+                  </TableCell>
+                  <TableCell
+                    align="center"
                     style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                   >
                     <IconButton>

@@ -14,16 +14,19 @@ import {
   TextField,
 } from "@mui/material";
 import { Formik, useFormik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { uploadImageToCloudinary } from "../util/UploadToCloudinary";
+import { useDispatch, useSelector } from "react-redux";
+import { createMenuItem } from "../../component/State/Menu/Action";
+import { getIngredientsOfRestaurant } from "../../component/State/Ingredients/Action";
 
 const initialValues = {
   name: "",
   description: "",
   price: "",
   category: "",
-  restaurantId: 2,
+  restaurantId: 1,
   vegetarian: true,
   seasonal: false,
   ingredients: [],
@@ -42,11 +45,15 @@ const MenuProps = {
 };
 
 const CreateMenuForm = () => {
+  const dispatch = useDispatch();
+  const jwt = localStorage.getItem("jwt");
+  const { restaurant, ingredients } = useSelector((store) => store);
   const [uploadImage, setUploadImage] = useState(false);
   const formik = useFormik({
     initialValues,
     onSubmit: (values) => {
-      values.restaurantId = 2;
+      values.restaurantId = 1;
+      dispatch(createMenuItem({ menu: values, jwt }));
       console.log("data --- ", values);
     },
   });
@@ -65,6 +72,12 @@ const CreateMenuForm = () => {
     updatedImages.splice(index, 1);
     formik.setFieldValue("images", updatedImages);
   };
+
+  useEffect(() => {
+    dispatch(
+      getIngredientsOfRestaurant({ jwt, id: restaurant.usersRestaurant.id })
+    );
+  }, []);
 
   return (
     <div className="py-10 px-5 lg:flex items-center justify-center min-h-screen">
@@ -195,25 +208,16 @@ const CreateMenuForm = () => {
                   label="카테고리"
                   onChange={formik.handleChange}
                   name="category"
+                  sx={{ fontFamily: "Ownglyph_meetme-Rg" }}
                 >
-                  <MenuItem
-                    value={10}
-                    sx={{ fontFamily: "Ownglyph_meetme-Rg" }}
-                  >
-                    Ten
-                  </MenuItem>
-                  <MenuItem
-                    value={20}
-                    sx={{ fontFamily: "Ownglyph_meetme-Rg" }}
-                  >
-                    Twenty
-                  </MenuItem>
-                  <MenuItem
-                    value={30}
-                    sx={{ fontFamily: "Ownglyph_meetme-Rg" }}
-                  >
-                    Thirty
-                  </MenuItem>
+                  {restaurant.categories.map((item) => (
+                    <MenuItem
+                      value={item}
+                      sx={{ fontFamily: "Ownglyph_meetme-Rg" }}
+                    >
+                      {item.name}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             </Grid>
@@ -242,19 +246,19 @@ const CreateMenuForm = () => {
                   renderValue={(selected) => (
                     <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
                       {selected.map((value) => (
-                        <Chip key={value} label={value} />
+                        <Chip key={value.id} label={value.name} />
                       ))}
                     </Box>
                   )}
                   // MenuProps={MenuProps}
                 >
-                  {["하트일지초", "숫자초"].map((name, index) => (
+                  {ingredients.ingredients?.map((item, index) => (
                     <MenuItem
-                      key={name}
-                      value={name}
+                      key={item.id}
+                      value={item}
                       sx={{ fontFamily: "Ownglyph_meetme-Rg" }}
                     >
-                      {name}
+                      {item.name}
                     </MenuItem>
                   ))}
                 </Select>
