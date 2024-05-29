@@ -38,12 +38,18 @@ const Orders = () => {
           >
             {orderStatus.map((item) => (
               <FormControlLabel
-                style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                 key={item.label}
                 value={item.value}
                 control={<Radio />}
-                label={item.label}
-                sx={{ color: "gray", fontFamily: "Ownglyph_meetme-Rg" }}
+                label={
+                  <Typography
+                    style={{
+                      fontFamily: "Ownglyph_meetme-Rg",
+                    }}
+                  >
+                    {item.label}
+                  </Typography>
+                }
               ></FormControlLabel>
             ))}
           </RadioGroup>

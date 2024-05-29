@@ -18,7 +18,10 @@ import CreateIcon from "@mui/icons-material/Create";
 import { Delete } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getMenuItemsByRestaurantId } from "../../component/State/Menu/Action";
+import {
+  deleteFoodAction,
+  getMenuItemsByRestaurantId,
+} from "../../component/State/Menu/Action";
 
 const orders = [1, 1, 1, 1, 1];
 
@@ -40,6 +43,10 @@ const MenuTable = () => {
       })
     );
   }, []);
+
+  const handleDeleteFood = (foodId) => {
+    dispatch(deleteFoodAction({ foodId, jwt }));
+  };
 
   return (
     <Box>
@@ -156,7 +163,10 @@ const MenuTable = () => {
                     align="center"
                     style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                   >
-                    <IconButton>
+                    <IconButton
+                      color="primary"
+                      onClick={() => handleDeleteFood(item.id)}
+                    >
                       <Delete />
                     </IconButton>
                   </TableCell>
