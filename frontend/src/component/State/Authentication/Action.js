@@ -23,13 +23,8 @@ export const registerUser = (reqData) => async (dispatch) => {
       `${API_URL}/auth/signup`,
       reqData.userData
     );
-    if (data.jwt) localStorage.setItem("jwt", data.jwt);
-    if (data.role === "ROLE_RESTAURANT_OWNER") {
-      reqData.navigate("/admin/restaurants");
-    } else {
-      reqData.navigate("/");
-    }
-    dispatch({ type: REGISTER_SUCCESS, payload: data.jwt });
+    reqData.navigate("/");
+    dispatch({ type: REGISTER_SUCCESS });
     console.log("register sucess", data);
   } catch (error) {
     dispatch({ type: REGISTER_FAILURE, payload: error });

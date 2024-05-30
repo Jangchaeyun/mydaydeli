@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import ProfileNavigation from "./ProfileNavigation";
 import { Route, Routes } from "react-router-dom";
 import UserProfile from "./UserProfile";
-import Address from "./Address";
 import Favorites from "./Favorites";
-import Events from "./Events";
 import Orders from "./Orders";
 
 const Profile = () => {
@@ -19,9 +17,7 @@ const Profile = () => {
         <Routes>
           <Route path="/" element={<UserProfile />}></Route>
           <Route path="/orders" element={<Orders />}></Route>
-          <Route path="/address" element={<Address />}></Route>
           <Route path="/favorites" element={<Favorites />}></Route>
-          <Route path="/events" element={<Events />}></Route>
         </Routes>
       </div>
     </div>

@@ -3,7 +3,6 @@ import AdminSideBar from "./AdminSideBar";
 import { Route, Routes } from "react-router-dom";
 import Orders from "../Orders/Orders";
 import Menu from "../Menu/Menu";
-import Events from "../Events/Events";
 import FoodCategory from "../FoodCategory/FoodCategory";
 import Ingredients from "../ingredients/Ingredients";
 import RestaurantDetail from "./RestaurantDetail";
@@ -48,7 +47,6 @@ const Admin = () => {
           <Route path="/menu" element={<Menu />} />
           <Route path="/category" element={<FoodCategory />} />
           <Route path="/ingredients" element={<Ingredients />} />
-          <Route path="/event" element={<Events />} />
           <Route path="/details" element={<RestaurantDetail />} />
           <Route path="/add-menu" element={<CreateMenuForm />} />
         </Routes>

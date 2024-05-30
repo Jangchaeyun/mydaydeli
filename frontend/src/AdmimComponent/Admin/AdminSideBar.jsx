@@ -17,7 +17,6 @@ const menu = [
   { title: "메뉴 관리", icon: <ShopTwoIcon />, path: "/menu" },
   { title: "카테고리 관리", icon: <CategoryIcon />, path: "/category" },
   { title: "세부 메뉴 관리", icon: <FastfoodIcon />, path: "/ingredients" },
-  { title: "아벤트 관리", icon: <EventIcon />, path: "/event" },
   { title: "상세 관리", icon: <AdminPanelSettingsIcon />, path: "/details" },
   { title: "로그아웃", icon: <LogoutIcon />, path: "/" },
 ];

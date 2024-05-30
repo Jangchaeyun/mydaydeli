@@ -14,14 +14,6 @@ import { logout } from "../State/Authentication/Action";
 const menu = [
   { title: "주문목록", icon: <ShoppingBagIcon />, navigate: "orders" },
   { title: "즐겨찾기", icon: <FavoriteIcon />, navigate: "favorites" },
-  { title: "주소", icon: <HomeIcon />, navigate: "address" },
-  { title: "결제", icon: <AccountBalanceWalletIcon />, navigate: "payment" },
-  {
-    title: "알림",
-    icon: <NotificationsActiveIcon />,
-    navigate: "notification",
-  },
-  { title: "이벤트", icon: <EventIcon />, navigate: "events" },
   { title: "로그아웃", icon: <LogoutIcon />, navigate: "" },
 ];
 const ProfileNavigation = ({ open, handleClose }) => {

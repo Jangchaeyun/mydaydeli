@@ -9,7 +9,6 @@ import {
 } from "@mui/material";
 import React from "react";
 import CartItem from "./CartItem";
-import AddressCard from "./AddressCard";
 import AddLocationAltIcon from "@mui/icons-material/AddLocationAlt";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
@@ -104,18 +103,11 @@ const Cart = () => {
               배송지 선택
             </h1>
             <div className="flex gap-5 flex-wrap justify-center">
-              {[1, 1, 1, 1, 1].map((item) => (
-                <AddressCard
-                  handleSelectAddress={createOrderUsingSelectedAddress}
-                  item={item}
-                  showButton={true}
-                />
-              ))}
               <Card className="flex gap-5 w-64 p-5">
                 <AddLocationAltIcon />
                 <div className="space-y-3 text-gray-500">
                   <h1 className="font-semibold text-lg text-white">
-                    새로운 배송지 추가
+                    배송지 입력
                   </h1>
 
                   <Button
@@ -124,7 +116,7 @@ const Cart = () => {
                     onClick={handleOpenAddressModel}
                     style={{ fontFamily: "Ownglyph_meetme-Rg" }}
                   >
-                    추가
+                    입력
                   </Button>
                 </div>
               </Card>
